@@ -16,6 +16,34 @@ main:
 //header
     ldr     x0, =szHeader   //load  address of header into x0
     bl      putstring       //call function with szHeader as argument
+    
+    ldr     x0, =szInput // load input message
+    bl      putstring    // output input message
+    
+    ldr     x0, =s1      // label to store string
+    mov     x1, #SIZE    // size of input buffer
+    bl      getstring    // get string
+    
+    ldr     x0, =szInput // load input message
+    bl      putstring    // output input message
+    
+    ldr     x0, =s2      // label to store string
+    mov     x1, #SIZE    // size of input buffer
+    bl      getstring    // get string
+    
+    
+    ldr     x0, =szInput // load input message
+    bl      putstring    // output input message
+    
+    ldr     x0, =s3
+    mov     x1, #SIZE    // size of input buffer
+    bl      getstring    // get string
+    
+    ldr     x0, =chCr    // loads newline character
+    bl      putch        // outputs newline
+    
+    
+    
 
 // prompt #1
     ldr     x0, =s1           // Load the address of string 1 into x0
@@ -181,12 +209,10 @@ main:
     mov     x1, #4            // Move the value 4 into x1 register
     bl      string_charAt     // Call string_charAt function with arguments x0 and x1 to get the 4th character of s2
     
-    ldr     x1, =s4           // Load address of string s4 into x1 register
-    str     x0, [x1]          // Store the result of the string_charAt function (in x0) into s4
-    bl      putstring         // Call putstring function to print s4 to console
+    bl      putch             // Output character
     
     ldr     x0, =szSingle     // Load address of string szSingle into x0 register
-    bl      putstring         // Call putstring function to print szSingle string to console
+    bl      putch         // Call putstring function to print szSingle string to console
     
     ldr     x0, =chCr         // Load the character value of the carriage return into x0 register
     bl      putch             // Call putch function to print the carriage return character to console
@@ -457,10 +483,12 @@ end:
     svc     0              // Call linux to terminate the program
 
 .data // Data values
-s1:              .asciz   "Cat in the hat."
-s2:              .asciz   "Green eggs and ham."
-s3:              .asciz   "cat in the hat."
+szInput:         .asciz "Enter string: "
+s1:              .skip   21
+s2:              .skip   21
+s3:              .skip   21
 s4:              .skip    25
+chS:             .byte
 s1Length:        .asciz   "1.s1.length() = "
 s2Length:        .asciz   "  s2.length() = "
 s3Length:        .asciz   "  s3.length() = "
